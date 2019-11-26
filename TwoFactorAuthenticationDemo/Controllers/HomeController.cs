@@ -51,16 +51,6 @@ namespace TwoFactorAuthenticationDemo.Controllers
             return View();
         }
 
-        public ActionResult UserProfile()
-        {
-            if (Session["Username"] == null || Session["IsValidTwoFactorAuthentication"] == null || !(bool)Session["IsValidTwoFactorAuthentication"])
-            {
-                return RedirectToAction("Login");
-            }
-            ViewBag.Message = "Welcome to Mr. " + Session["Username"].ToString();
-            return View();
-        }
-
         public ActionResult TwoFactorAuthenticate()
         {
             var token = Request["CodeDigit"];
@@ -73,6 +63,16 @@ namespace TwoFactorAuthenticationDemo.Controllers
                 return RedirectToAction("UserProfile", "Home");
             }
             return RedirectToAction("Login", "Home");
+        }
+
+        public ActionResult UserProfile()
+        {
+            if (Session["Username"] == null || Session["IsValidTwoFactorAuthentication"] == null || !(bool)Session["IsValidTwoFactorAuthentication"])
+            {
+                return RedirectToAction("Login");
+            }
+            ViewBag.Message = "Welcome to Mr. " + Session["Username"].ToString();
+            return View();
         }
     }
 }
